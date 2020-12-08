@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[k_m_indicators] (
+    [id_ind]              INT            IDENTITY (1, 1) NOT NULL,
+    [name_ind]            NVARCHAR (255) NOT NULL,
+    [categorie1_ind]      INT            NULL,
+    [categorie2_ind]      INT            NULL,
+    [categorie3_ind]      INT            NULL,
+    [status_ind]          INT            NULL,
+    [comment_ind]         NVARCHAR (MAX) NULL,
+    [id_type_ind]         INT            NOT NULL,
+    [id_mask]             INT            NULL,
+    [is_olap]             BIT            CONSTRAINT [DF_k_m_indicators_is_olap] DEFAULT ((0)) NOT NULL,
+    [id_perimeter]        INT            NULL,
+    [olap_dimension_date] NVARCHAR (MAX) NULL,
+    [id_owner]            INT            NULL,
+    [date_create_ind]     DATETIME       CONSTRAINT [DF_k_m_indicators_date_create_ind] DEFAULT (getdate()) NULL,
+    [id_user_update]      INT            NULL,
+    [date_update_ind]     DATETIME       NULL,
+    [id_timeframe]        INT            NULL,
+    [id_source_tenant]    INT            NULL,
+    [id_source]           INT            NULL,
+    [id_change_set]       INT            NULL,
+    [id_perspective]      INT            NULL,
+    CONSTRAINT [PK_k_m_indicators] PRIMARY KEY CLUSTERED ([id_ind] ASC),
+    CONSTRAINT [FK_k_m_indicators_k_m_category] FOREIGN KEY ([categorie1_ind]) REFERENCES [dbo].[k_m_category] ([id_category]),
+    CONSTRAINT [FK_k_m_indicators_k_m_perspective] FOREIGN KEY ([id_perspective]) REFERENCES [dbo].[k_m_perspective] ([id_perspective]),
+    CONSTRAINT [FK_k_m_indicators_m_indicators_types] FOREIGN KEY ([id_type_ind]) REFERENCES [dbo].[k_m_indicators_types] ([id_type_ind])
+);
+

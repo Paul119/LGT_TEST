@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[k_home_page_item] (
+    [id_home_page_item]      INT            IDENTITY (1, 1) NOT NULL,
+    [id_home_page_item_type] INT            NOT NULL,
+    [id_home_page]           INT            NOT NULL,
+    [html_content]           NVARCHAR (MAX) NULL,
+    [order_home_page_item]   INT            NOT NULL,
+    [create_date]            DATETIME       NULL,
+    [modify_date]            DATETIME       NULL,
+    [id_source_tenant]       INT            NULL,
+    [id_source]              INT            NULL,
+    [id_change_set]          INT            NULL,
+    [report_width]           INT            NULL,
+    [report_height]          INT            NULL,
+    [report_alignment]       INT            NULL,
+    [report_id]              INT            NULL,
+    [report_hide_toolbar]    BIT            NULL,
+    [is_size_percentage]     BIT            NULL,
+    [html_content_original]  NVARCHAR (MAX) NULL,
+    [use_translate]          BIT            CONSTRAINT [DF_k_home_page_item_use_translate] DEFAULT ((0)) NOT NULL,
+    [id_dashboard]           INT            NULL,
+    CONSTRAINT [PK_k_home_page_item] PRIMARY KEY CLUSTERED ([id_home_page_item] ASC),
+    CONSTRAINT [FK_k_home_page_item_k_home_page] FOREIGN KEY ([id_home_page]) REFERENCES [dbo].[k_home_page] ([id_home_page]),
+    CONSTRAINT [FK_k_home_page_item_k_home_page_item_type] FOREIGN KEY ([id_home_page_item_type]) REFERENCES [dbo].[k_home_page_item_type] ([id_home_page_item_type]),
+    CONSTRAINT [FK_k_home_page_item_report_id] FOREIGN KEY ([report_id]) REFERENCES [dbo].[k_reports] ([id_report])
+);
+

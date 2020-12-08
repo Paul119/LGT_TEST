@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[k_user_plan_field] (
+    [id_user_plan_field]       INT            IDENTITY (1, 1) NOT NULL,
+    [id_user]                  INT            NOT NULL,
+    [id_plan]                  INT            NOT NULL,
+    [id_plan_information]      INT            NULL,
+    [id_indicator_field]       INT            NULL,
+    [column_name]              NVARCHAR (250) NULL,
+    [sort]                     INT            NULL,
+    [sort_direction]           INT            NULL,
+    [is_visible]               BIT            CONSTRAINT [DF_k_user_plan_field_is_visible] DEFAULT ((1)) NOT NULL,
+    [id_profile]               INT            NOT NULL,
+    [filter_type]              INT            NULL,
+    [filter_value]             NVARCHAR (255) NULL,
+    [order_columns]            INT            NULL,
+    [is_frozen]                BIT            NULL,
+    [indicator_field_sub_type] NVARCHAR (40)  NULL,
+    [width]                    INT            NULL,
+    [is_grouped]               BIT            NULL,
+    CONSTRAINT [PK_k_user_plan_field] PRIMARY KEY CLUSTERED ([id_user_plan_field] ASC),
+    CONSTRAINT [FK_k_user_plan_field_k_column_filter_type] FOREIGN KEY ([filter_type]) REFERENCES [dbo].[k_column_filter_type] ([id_column_filter_type]),
+    CONSTRAINT [FK_k_user_plan_field_k_m_indicators_fields] FOREIGN KEY ([id_indicator_field]) REFERENCES [dbo].[k_m_indicators_fields] ([id_indicator_field]),
+    CONSTRAINT [FK_k_user_plan_field_k_m_plans] FOREIGN KEY ([id_plan]) REFERENCES [dbo].[k_m_plans] ([id_plan]),
+    CONSTRAINT [FK_k_user_plan_field_k_m_plans_informations] FOREIGN KEY ([id_plan_information]) REFERENCES [dbo].[k_m_plans_informations] ([id_planInfo]),
+    CONSTRAINT [FK_k_user_plan_field_k_profiles] FOREIGN KEY ([id_profile]) REFERENCES [dbo].[k_profiles] ([id_profile]),
+    CONSTRAINT [FK_k_user_plan_field_k_users] FOREIGN KEY ([id_user]) REFERENCES [dbo].[k_users] ([id_user]),
+    CONSTRAINT [UC_k_user_plan_field_check_save_operation] UNIQUE NONCLUSTERED ([id_profile] ASC, [id_user] ASC, [id_plan] ASC, [id_plan_information] ASC, [id_indicator_field] ASC, [column_name] ASC, [indicator_field_sub_type] ASC)
+);
+

@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[k_tree_security] (
+    [id_tree_security]        INT            IDENTITY (1, 1) NOT NULL,
+    [description_security]    NVARCHAR (MAX) NULL,
+    [comment_security]        NVARCHAR (MAX) NULL,
+    [begin_date]              DATETIME       NOT NULL,
+    [end_date]                DATETIME       NULL,
+    [id_user_profile]         INT            NOT NULL,
+    [id_tree_node_published]  INT            NULL,
+    [is_manage_access]        BIT            NOT NULL,
+    [is_self]                 BIT            NOT NULL,
+    [is_apply_filter]         BIT            NOT NULL,
+    [is_included]             BIT            NOT NULL,
+    [id_tree_security_type]   INT            NULL,
+    [id_owner]                INT            NOT NULL,
+    [id_parent_tree_security] INT            NULL,
+    [create_date]             DATETIME       NOT NULL,
+    [modified_date]           DATETIME       NULL,
+    [modified_id_user]        INT            NULL,
+    CONSTRAINT [PK_k_tree_security] PRIMARY KEY CLUSTERED ([id_tree_security] ASC),
+    CONSTRAINT [FK_k_tree_security_hm_NodelinkPublished] FOREIGN KEY ([id_tree_node_published]) REFERENCES [dbo].[hm_NodelinkPublished] ([id]),
+    CONSTRAINT [FK_k_tree_security_k_tree_security] FOREIGN KEY ([id_parent_tree_security]) REFERENCES [dbo].[k_tree_security] ([id_tree_security]),
+    CONSTRAINT [FK_k_tree_security_k_tree_security_type] FOREIGN KEY ([id_tree_security_type]) REFERENCES [dbo].[k_tree_security_type] ([id_tree_security_type]),
+    CONSTRAINT [FK_k_tree_security_k_users] FOREIGN KEY ([id_owner]) REFERENCES [dbo].[k_users] ([id_user]),
+    CONSTRAINT [FK_k_tree_security_k_users_profiles] FOREIGN KEY ([id_user_profile]) REFERENCES [dbo].[k_users_profiles] ([idUserProfile])
+);
+

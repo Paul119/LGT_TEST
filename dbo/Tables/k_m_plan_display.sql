@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[k_m_plan_display] (
+    [id_plan_display]                  INT           IDENTITY (1, 1) NOT NULL,
+    [id_plan]                          INT           NOT NULL,
+    [id_profile]                       INT           NOT NULL,
+    [available_start_date]             BIT           NOT NULL,
+    [available_end_date]               BIT           NOT NULL,
+    [available_workflow_status]        BIT           NOT NULL,
+    [available_workflow_step_name]     BIT           NOT NULL,
+    [show_start_date]                  BIT           NOT NULL,
+    [show_end_date]                    BIT           NOT NULL,
+    [show_workflow_status]             BIT           NOT NULL,
+    [show_workflow_step_name]          BIT           NOT NULL,
+    [optional_show_start_date]         BIT           NOT NULL,
+    [optional_show_end_date]           BIT           NOT NULL,
+    [optional_show_workflow_status]    BIT           NOT NULL,
+    [optional_show_workflow_step_name] BIT           NOT NULL,
+    [id_source_tenant]                 INT           NULL,
+    [id_source]                        INT           NULL,
+    [id_change_set]                    INT           NULL,
+    [available_default_form_header]    BIT           NOT NULL,
+    [workflow_level]                   NVARCHAR (10) NULL,
+    CONSTRAINT [PK_k_m_plan_display] PRIMARY KEY CLUSTERED ([id_plan_display] ASC),
+    CONSTRAINT [FK_k_m_plan_display_k_m_plans] FOREIGN KEY ([id_plan]) REFERENCES [dbo].[k_m_plans] ([id_plan]),
+    CONSTRAINT [FK_k_m_plan_display_k_profiles] FOREIGN KEY ([id_profile]) REFERENCES [dbo].[k_profiles] ([id_profile])
+);
+
